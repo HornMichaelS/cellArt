@@ -2,7 +2,7 @@
 
 ###Installation
 
-First ensure you have [nodejs](#https://nodejs.org/en/download/) installed.
+First ensure you have [nodejs](https://nodejs.org/en/download/) installed.
 
 ####Clone this repository:
 
