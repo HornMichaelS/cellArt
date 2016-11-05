@@ -4,18 +4,28 @@ import Settings from './Settings';
 import CellularAutomaton from './CellularAutomaton';
 import './Game.css';
 
+/**
+  * A component containing the whole 'game' including controls, display,
+  * and automaton simulator.
+  */
 class Game extends React.Component {
+
+    /**
+      * Establish initial settings for the game, and initialize the automaton.
+      * @param {Object} props The props passed in to this component.
+      */
     constructor(props) {
         super(props);
         this.automaton = new CellularAutomaton();
+        this.maxSpeed = 10;
         this.state = {
             settings: {
-                speed: 1,
+                speed: 5,
                 drawLiveCell: false,
                 drawCellDeath: true,
                 randomizeLifeColor: false,
                 randomizeDeathColor: true,
-                cellSize: 10,
+                cellSize: 3,
             },
             changedCells: [],
             displayWidth: 100,
@@ -23,7 +33,11 @@ class Game extends React.Component {
         };
     }
 
-    changeSettings(newSettings) {
+    /**
+      * Update state to reflect changes user made in the settings component.
+      * @param {Object} newSettings A new settings object with updated settings.
+      */
+    handleSettingsChange(newSettings) {
         this.setState({
             settings: newSettings,
         });
@@ -31,12 +45,13 @@ class Game extends React.Component {
 
     /**
       * Change the state to reflect a change in the size of the user's browser
-      * viewport.
+      * viewport, so that the display can grow and shrink accordingly.
       * @param {Function} callBack Optional function to run after state mutation
       */
-    adjustCanvas(callBack) {
-        let width = document.getElementById('Game-display-container').clientWidth;
-        let height = document.getElementById('Game-display-container').clientHeight;
+    adjustDisplay(callBack) {
+        let gameDisplayElem = document.getElementById('Game-display-container');
+        let width = gameDisplayElem.clientWidth;
+        let height = gameDisplayElem.clientHeight;
 
         this.setState({
             displayWidth: width.toString(),
@@ -44,10 +59,14 @@ class Game extends React.Component {
         }, callBack);
     }
 
+    /**
+      * Run a single step of the simulation, and update the state to reflect
+      * changes in the automaton.
+      */
     updateCycle() {
         this.automaton.update();
         this.setState({
-            changedCells: this.automaton.changedQueue,
+            updatedCells: this.automaton.updateQueue,
         });
     }
 
@@ -66,32 +85,65 @@ class Game extends React.Component {
         }
     }
 
+    /**
+      * The interval will halve with each increase in speed.
+      * @return {Number} The calculated interval.
+      */
+    calculateIntervalFromSpeed() {
+        let exponent = this.maxSpeed - this.state.settings.speed;
+        let interval = Math.pow(2, exponent);
+        return interval;
+    }
+
+    /**
+      * Set the initial display size, setup a window size event listener,
+      * and start the simulation.
+      */
     componentDidMount() {
-        this.adjustCanvas(this.initializeGame);
+        this.adjustDisplay(this.initializeGame);
 
-        window.onresize = this.adjustCanvas.bind(this, null);
-
-        this.intervalHandle = window.setInterval(this.updateCycle.bind(this),
-            1025-(1025 - Math.pow(2, 10 - this.state.settings.speed)));
+        window.onresize = this.adjustDisplay.bind(this, null);
+        let boundUpdateFunc = this.updateCycle.bind(this);
+        this.updateInterval =
+            window.setInterval(
+                boundUpdateFunc,
+                this.calculateIntervalFromSpeed()
+            );
     }
 
+    /**
+      * If the speed setting changed in the last state update, reset the
+      * interval to reflect the new speed.
+      * @param {Object} prevProps Props from before update.
+      * @param {Object} prevState State from before update.
+      */
     componentDidUpdate(prevProps, prevState) {
-        window.clearInterval(this.intervalHandle);
-        this.intervalHandle = window.setInterval(this.updateCycle.bind(this),
-            1025-(1025 - Math.pow(2, 10 - this.state.settings.speed)));
+        let boundUpdateFunc = this.updateCycle.bind(this);
+        window.clearInterval(this.updateInterval);
+        this.updateInterval =
+            window.setInterval(
+                boundUpdateFunc,
+                this.calculateIntervalFromSpeed()
+            );
     }
 
+    /**
+      * Render component.
+      * @return {Object} The rendered component
+      */
     render() {
-
         return (
             <div id="Game-outer-container">
                 <div id="Game-settings-container">
-                    <Settings onSettingsChange={this.changeSettings.bind(this)}
-                              currentSettings={this.state.settings} />
+                    <Settings
+                        onSettingsChange={this.handleSettingsChange.bind(this)}
+                        currentSettings={this.state.settings}
+                        maxSpeed={this.maxSpeed}
+                    />
                 </div>
                 <div id="Game-display-container">
                     <GameDisplay settings={this.state.settings}
-                                 changedCells={this.state.changedCells}
+                                 updatedCells={this.state.updatedCells}
                                  displayWidth={this.state.displayWidth}
                                  displayHeight={this.state.displayHeight} />
                 </div>

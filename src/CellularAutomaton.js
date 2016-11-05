@@ -32,7 +32,7 @@ export default class CellularAutomaton {
 
         // Contains references to all cells for which the state changed in
         // the last update.
-        this.changedQueue = [];
+        this.updateQueue = [];
 
         // Contains references to every cell who is alive, or who has living
         // neighbors.
@@ -55,14 +55,14 @@ export default class CellularAutomaton {
       */
     reconcileUserChanges() {
         // If user changed a cell back to its natural state, it should be
-        // removed from both the userChangedMap and the changedQueue.
+        // removed from both the userChangedMap and the updateQueue.
         for (let key in this.userChangedMap) {
             if (this.userChangedMap.hasOwnProperty(key)) {
                 let cell = this.userChangedMap[key];
-                let cqIndex = this.changedQueue.indexOf(cell);
+                let cqIndex = this.updateQueue.indexOf(cell);
                 if (cqIndex !== -1) {
                     delete this.userChangedMap[key];
-                    this.changedQueue.splice(cqIndex, 1);
+                    this.updateQueue.splice(cqIndex, 1);
                 } else {
                     this.cellMap[key] = cell;
                 }
@@ -73,7 +73,7 @@ export default class CellularAutomaton {
             if (this.userChangedMap.hasOwnProperty(key)) {
                 let cell = this.userChangedMap[key];
                 this.updateNumNeighbors(cell);
-                this.changedQueue.push(cell);
+                this.updateQueue.push(cell);
                 if (!cell.willEvaluate) {
                     this.evalQueue.push(cell);
                 }
@@ -95,8 +95,8 @@ export default class CellularAutomaton {
           * For every cell who's state changed in the last update, update
           * the numNeighbors property of its neighboring cells.
           */
-        for (let k = 0; k < this.changedQueue.length; k++) {
-            let cell = this.changedQueue[k];
+        for (let k = 0; k < this.updateQueue.length; k++) {
+            let cell = this.updateQueue[k];
 
             if (cell !== undefined) {
                 for (let i = cell.y - 1; i <= cell.y + 1; i++) {
@@ -140,7 +140,7 @@ export default class CellularAutomaton {
             }
         }
 
-        this.changedQueue = [];
+        this.updateQueue = [];
 
         /**
           * Evaluate every cell for which numNeighbors changed in the last
@@ -169,13 +169,13 @@ export default class CellularAutomaton {
                     cell.alive = false;
                     this.liveCells--;
                     cell.changedNaturally = true;
-                    this.changedQueue.push(cell);
+                    this.updateQueue.push(cell);
                 }
             } else if (cellShouldBeBorn && cellIsObedient) {
                 cell.alive = true;
                 this.liveCells++;
                 cell.changedNaturally = true;
-                this.changedQueue.push(cell);
+                this.updateQueue.push(cell);
             }
 
             /**

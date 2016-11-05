@@ -1,4 +1,5 @@
 import React from 'react';
+import './GameDisplay.css';
 
 /**
  * A component which renders a representation of a cellular
@@ -74,14 +75,14 @@ class GameDisplay extends React.Component {
       * to the front canvas
       */
     drawWorld() {
-        const changedCells = this.props.changedCells;
+        const updatedCells = this.props.updatedCells;
 
         /**
           * Iterate through the cells which were updated in the last cycle,
           * and draw them to the canvas in their new state.
           */
-        for (let i = 0; i < changedCells.length; i++) {
-            let cell = changedCells[i];
+        for (let i = 0; i < updatedCells.length; i++) {
+            let cell = updatedCells[i];
 
             const {randomizeDeathColor,
                    randomizeLifeColor,
@@ -114,8 +115,6 @@ class GameDisplay extends React.Component {
         this.frontContext.drawImage(this.backCanvas, 0, 0);
     }
 
-
-
     /**
       * Initialize the canvas here, since they must be attached to the newly
       * created canvas DOM element. This is also where the canvas render cycle
@@ -132,10 +131,12 @@ class GameDisplay extends React.Component {
     }
 
     /**
-      * This is where 
+      * When state changes, rerender the display.
       */
     componentDidUpdate() {
-        this.drawWorld();
+        if (this.props.updatedCells) {
+            this.drawWorld();
+        }
     }
 
     /**
@@ -144,15 +145,9 @@ class GameDisplay extends React.Component {
       *                  where the game world is rendered.
       */
     render() {
-        let canvasStyle = {
-            borderTop: 'solid black 1px',
-            borderBottom: 'solid black 1px',
-            backgroundColor: 'white',
-        };
-
         return (
             <canvas ref="canvas"
-                    style={canvasStyle}
+                    className="GameDisplay-canvas"
                     width={this.props.displayWidth}
                     height={this.props.displayHeight}>
 
