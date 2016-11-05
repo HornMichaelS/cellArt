@@ -11,11 +11,11 @@ git clone https://github.com/HornMichaelS/cellArt.git
 cd cellArt
 ```
 
-#Install dependencies:
+####Install dependencies:
 
 `npm install`
 
-#Run app:
+####Run app:
 
 `npm start`
 
