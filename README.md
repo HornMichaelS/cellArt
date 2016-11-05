@@ -6,8 +6,10 @@ First ensure you have [nodejs](#https://nodejs.org/en/download/) installed.
 
 ####Clone this repository:
 
-```git clone https://github.com/HornMichaelS/cellArt.git
-cd cellArt```
+```
+git clone https://github.com/HornMichaelS/cellArt.git
+cd cellArt
+```
 
 Install dependencies using [npm](#www.google.com)
 
