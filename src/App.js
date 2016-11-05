@@ -8,11 +8,11 @@ class App extends React.Component {
         super(props);
         this.state = {
             settings: {
-                speed: 800,
-                drawLiveCell: false,
+                speed: 5,
+                drawLiveCell: true,
                 drawCellDeath: true,
                 randomizeLifeColor: false,
-                randomizeDeathColor: true,
+                randomizeDeathColor: false,
             },
         };
     }

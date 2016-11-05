@@ -14,8 +14,8 @@ class Settings extends React.Component {
             <div className="speed-range">
                 Speed: <input type="range"
                                  name="interval"
-                                 min="1"
-                                 max="1000"
+                                 min="0"
+                                 max="8"
                                  value={speed}
                                  onChange={onSpeedChange}></input>
             </div>

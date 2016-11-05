@@ -161,7 +161,7 @@ export default class CellularAutomaton {
               * Introduce a slight probability for the cell to disobey the
               * rules (just for fun).
               */
-            let cellIsObedient = (Math.random() * 5) > 0;
+            let cellIsObedient = (Math.random() * 5) > 0.001;
 
             // Update the cell
             if (cell.alive) {

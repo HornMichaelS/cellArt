@@ -15,7 +15,7 @@ class Game extends React.Component {
         super(props);
 
         this.automaton = new CellularAutomaton();
-        this.cellPixelSize = 1;
+        this.cellPixelSize = 5;
 
         // Property to track the current drawing color
         this.lifeColor = [0, 0, 0];
@@ -142,10 +142,10 @@ class Game extends React.Component {
       */
     initializeGame() {
         let lineSize = Math.floor(this.state.gameWidth /
-            (2*this.cellPixelSize));
+            (this.cellPixelSize));
         let hMid = Math.floor((this.state.gameWidth / 2) / this.cellPixelSize);
         let vMid = Math.floor((this.state.gameHeight / 2) / this.cellPixelSize);
-        for (let i = hMid - lineSize / 2; i < hMid + lineSize / 2; i++) {
+        for (let i = Math.floor(hMid - lineSize / 2); i < Math.floor(hMid + lineSize / 2); i++) {
             this.automaton.addCell(i, vMid);
             this.automaton.liveCells++;
         }
@@ -170,13 +170,13 @@ class Game extends React.Component {
         this.adjustCanvas(this.initializeGame);
 
         this.intervalHandle = window.setInterval(this.renderCycle.bind(this),
-            1000-this.props.settings.speed);
+            1025-(1025 - Math.pow(2, 10 - this.props.settings.speed)));
     }
 
     componentDidUpdate() {
         window.clearInterval(this.intervalHandle);
         this.intervalHandle = window.setInterval(this.renderCycle.bind(this),
-            1000-this.props.settings.speed);
+            1025-(1025 - Math.pow(2, 10 - this.props.settings.speed)));
     }
 
     /**
