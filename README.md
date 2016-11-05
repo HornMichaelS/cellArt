@@ -21,5 +21,6 @@ cd cellArt
 
 If a new browser tab is not automatically opened, open your browser and navigate to http://localhost:3000.
 
+---
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
