@@ -23,14 +23,16 @@ class Settings extends React.Component {
         const {speed} = this.props.currentSettings;
         const onSpeedChange = this.onSpeedChange.bind(this);
         return (
-            <div className="Settings-speed-range">
-                <div className="Settings-label">Speed</div>
-                <input type="range"
-                       name="interval"
-                       min="0"
-                       max={this.props.maxSpeed}
-                       value={speed}
-                       onChange={onSpeedChange}></input>
+            <div className="Settings-sub-container">
+                <div className="Settings-speed-range">
+                    <div className="Settings-label">Speed</div>
+                    <input type="range"
+                           name="interval"
+                           min="0"
+                           max={this.props.maxSpeed}
+                           value={speed}
+                           onChange={onSpeedChange}></input>
+                </div>
             </div>
         );
     }

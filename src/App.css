@@ -16,6 +16,7 @@
   text-align: center;
   padding-top: 15px;
   color: white;
+  border-bottom: black solid 3px;
 }
 
 .App-cell-text {

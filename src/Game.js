@@ -25,7 +25,7 @@ class Game extends React.Component {
                 drawCellDeath: true,
                 randomizeLifeColor: false,
                 randomizeDeathColor: true,
-                cellSize: 3,
+                cellSize: 10,
             },
             changedCells: [],
             displayWidth: 100,
@@ -103,10 +103,10 @@ class Game extends React.Component {
         this.adjustDisplay(this.initializeGame);
 
         window.onresize = this.adjustDisplay.bind(this, null);
-        let boundUpdateFunc = this.updateCycle.bind(this);
+
         this.updateInterval =
             window.setInterval(
-                boundUpdateFunc,
+                this.updateCycle.bind(this),
                 this.calculateIntervalFromSpeed()
             );
     }
@@ -118,11 +118,11 @@ class Game extends React.Component {
       * @param {Object} prevState State from before update.
       */
     componentDidUpdate(prevProps, prevState) {
-        let boundUpdateFunc = this.updateCycle.bind(this);
         window.clearInterval(this.updateInterval);
+
         this.updateInterval =
             window.setInterval(
-                boundUpdateFunc,
+                this.updateCycle.bind(this),
                 this.calculateIntervalFromSpeed()
             );
     }

@@ -38,21 +38,17 @@ class GameDisplay extends React.Component {
       */
     mutateColor(color, probability) {
         let channel = Math.floor(Math.random() * 3);
-        let randomValue = Math.floor(Math.random() * 100);
-        let colorShouldChange = randomValue < 2;
+        let shouldIncrement = Math.floor(Math.random() * 2) == 0;
 
         /**
           * If color will change, either decrement or increment the chosen
           * channel, according to the modulus 2 of the value chosen
           * previously.
           */
-        if (colorShouldChange) {
-            let shouldIncrement = randomValue === 0;
-            if (shouldIncrement && color[channel] < 255) {
-                color[channel]++;
-            } else if (color[channel] > 0) {
-                color[channel]--;
-            }
+        if (shouldIncrement && color[channel] < 246) {
+            color[channel] += 10;
+        } else if (color[channel] > 9) {
+            color[channel] -= 10;
         }
     }
 
@@ -77,25 +73,25 @@ class GameDisplay extends React.Component {
     drawWorld() {
         const updatedCells = this.props.updatedCells;
 
+        const {randomizeDeathColor,
+                   randomizeLifeColor,
+                   drawLiveCell,
+                   drawCellDeath} = this.props.settings;
+
+        if (randomizeDeathColor) {
+            this.mutateColor(this.deathColor);
+        }
+
+        if (randomizeLifeColor) {
+            this.mutateColor(this.lifeColor);
+        }
+
         /**
           * Iterate through the cells which were updated in the last cycle,
           * and draw them to the canvas in their new state.
           */
         for (let i = 0; i < updatedCells.length; i++) {
             let cell = updatedCells[i];
-
-            const {randomizeDeathColor,
-                   randomizeLifeColor,
-                   drawLiveCell,
-                   drawCellDeath} = this.props.settings;
-
-            if (randomizeDeathColor) {
-                this.mutateColor(this.deathColor, 0.01);
-            }
-
-            if (randomizeLifeColor) {
-                this.mutateColor(this.lifeColor, 0.01);
-            }
 
             let lifeColorString = 'rgb(' + this.lifeColor[0] + ',' +
                     this.lifeColor[1] + ',' + this.lifeColor[2] + ')';

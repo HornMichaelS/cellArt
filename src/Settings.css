@@ -1,7 +1,11 @@
-.Settings-speed-range {
+.Settings-sub-container {
     position: relative;
-    background-color: grey;
-    top: 65px;
+    top: 68px;
+}
+
+.Settings-speed-range {
+    color: white;
+    background-color: #334;
     padding: 10px;
     text-align: center
 }
@@ -10,9 +14,4 @@
     text-align: center;
     padding: 2;
     padding-bottom: 5px;
-}
-
-input {
-    position: relative;
-    right: 10px;
 }
