@@ -1,43 +1,17 @@
 import React from 'react';
 import './App.css';
 import Game from './Game';
-import Settings from './Settings';
 
 class App extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            settings: {
-                speed: 5,
-                drawLiveCell: true,
-                drawCellDeath: true,
-                randomizeLifeColor: false,
-                randomizeDeathColor: false,
-            },
-        };
-    }
-
-    changeSettings(newSettings) {
-        this.setState({
-            settings: newSettings,
-        });
-    }
 
     render() {
-        let gameLayout = {
-            width: '100%',
-            height: window.innerHeight * 0.8,
-            display: 'block',
-            marginTop: 75,
-        };
-
         return (
-            <div>
-                <div id="gameContainer" style={gameLayout}>
-                    <Game settings={this.state.settings} />
+            <div id="App-game-container">
+                <div className="App-header">
+                    <span className="App-cell-text">Cell</span>
+                    <span className="App-Art-text">Art</span>
                 </div>
-                <Settings onSettingsChange={this.changeSettings.bind(this)}
-                          currentSettings={this.state.settings} />
+                <Game />
             </div>
         );
     }

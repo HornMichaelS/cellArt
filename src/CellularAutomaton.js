@@ -93,7 +93,7 @@ export default class CellularAutomaton {
         }
         /**
           * For every cell who's state changed in the last update, update
-          * the numNeighbors property of neighboring cells.
+          * the numNeighbors property of its neighboring cells.
           */
         for (let k = 0; k < this.changedQueue.length; k++) {
             let cell = this.changedQueue[k];

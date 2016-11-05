@@ -1,4 +1,5 @@
 import React from 'react';
+import './Settings.css'
 
 class Settings extends React.Component {
     onSpeedChange(event) {
@@ -11,8 +12,9 @@ class Settings extends React.Component {
         const {speed} = this.props.currentSettings;
         const onSpeedChange = this.onSpeedChange.bind(this);
         return (
-            <div className="speed-range">
-                Speed: <input type="range"
+            <div className="Settings-speed-range">
+                <div className="Settings-label">Speed</div>
+                <input type="range"
                                  name="interval"
                                  min="0"
                                  max="8"
