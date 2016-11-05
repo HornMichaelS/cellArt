@@ -17,14 +17,14 @@ class Game extends React.Component {
     constructor(props) {
         super(props);
         this.automaton = new CellularAutomaton();
-        this.maxSpeed = 10;
+        this.maxSpeed = 8;
         this.state = {
             settings: {
-                speed: 5,
-                drawLiveCell: false,
+                speed: 2,
+                drawLiveCell: true,
                 drawCellDeath: true,
                 randomizeLifeColor: false,
-                randomizeDeathColor: true,
+                randomizeDeathColor: false,
                 cellSize: 10,
             },
             changedCells: [],
@@ -83,6 +83,12 @@ class Game extends React.Component {
             this.automaton.addCell(i, lineHeight);
             this.automaton.liveCells++;
         }
+
+        this.automaton.reconcileUserChanges.call(this.automaton);
+
+        this.setState({
+            updatedCells: this.automaton.updateQueue,
+        });
     }
 
     /**
@@ -90,7 +96,7 @@ class Game extends React.Component {
       * @return {Number} The calculated interval.
       */
     calculateIntervalFromSpeed() {
-        let exponent = this.maxSpeed - this.state.settings.speed;
+        let exponent = 10 - this.state.settings.speed;
         let interval = Math.pow(2, exponent);
         return interval;
     }
@@ -103,12 +109,6 @@ class Game extends React.Component {
         this.adjustDisplay(this.initializeGame);
 
         window.onresize = this.adjustDisplay.bind(this, null);
-
-        this.updateInterval =
-            window.setInterval(
-                this.updateCycle.bind(this),
-                this.calculateIntervalFromSpeed()
-            );
     }
 
     /**
@@ -118,6 +118,18 @@ class Game extends React.Component {
       * @param {Object} prevState State from before update.
       */
     componentDidUpdate(prevProps, prevState) {
+        if (this.updateInterval) {
+            window.clearInterval(this.updateInterval);
+
+            this.updateInterval =
+                window.setInterval(
+                    this.updateCycle.bind(this),
+                    this.calculateIntervalFromSpeed()
+                );
+        }
+    }
+
+    handlePlayButtonPressed() {
         window.clearInterval(this.updateInterval);
 
         this.updateInterval =
@@ -125,6 +137,15 @@ class Game extends React.Component {
                 this.updateCycle.bind(this),
                 this.calculateIntervalFromSpeed()
             );
+    }
+
+    handlePauseButtonPressed() {
+        this.updateInterval = window.clearInterval(this.updateInterval);
+    }
+
+    handleStepButtonPressed() {
+        this.updateInterval = window.clearInterval(this.updateInterval);
+        this.updateCycle();
     }
 
     /**
@@ -139,6 +160,9 @@ class Game extends React.Component {
                         onSettingsChange={this.handleSettingsChange.bind(this)}
                         currentSettings={this.state.settings}
                         maxSpeed={this.maxSpeed}
+                        handlePlay={this.handlePlayButtonPressed.bind(this)}
+                        handlePause={this.handlePauseButtonPressed.bind(this)}
+                        handleStep={this.handleStepButtonPressed.bind(this)}
                     />
                 </div>
                 <div id="Game-display-container">

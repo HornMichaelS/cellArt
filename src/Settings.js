@@ -33,6 +33,25 @@ class Settings extends React.Component {
                            value={speed}
                            onChange={onSpeedChange}></input>
                 </div>
+                <div className="Settings-play-pause-container">
+                    <ul className="Settings-play-pause-buttons">
+                        <li >
+                            <button className="Settings-play-button" onClick={this.props.handlePlay}>
+                                <img src="1478395686_play-triangle-media-shape.png" alt=""/>
+                            </button>
+                        </li>
+                        <li>
+                            <button className="Settings-pause-button" onClick={this.props.handlePause}>
+                                <img src="white-pause-48.png" alt=""/>
+                            </button>
+                        </li>
+                        <li>
+                            <button className="Settings-step-button" onClick={this.props.handleStep}>
+                                <img src="forward-media-step.png" alt=""/>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
             </div>
         );
     }
