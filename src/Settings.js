@@ -1,5 +1,5 @@
 import React from 'react';
-import './Settings.css';
+import './styles/Settings.css';
 
 /**
   * A component containing 'game' controls and settings.

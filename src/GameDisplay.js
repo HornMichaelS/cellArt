@@ -1,5 +1,5 @@
 import React from 'react';
-import './GameDisplay.css';
+import './styles/GameDisplay.css';
 
 /**
  * A component which renders a representation of a cellular

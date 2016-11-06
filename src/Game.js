@@ -2,7 +2,7 @@ import React from 'react';
 import GameDisplay from './GameDisplay';
 import Settings from './Settings';
 import CellularAutomaton from './CellularAutomaton';
-import './Game.css';
+import './styles/Game.css';
 
 /**
   * A component containing the whole 'game' including controls, display,
@@ -25,7 +25,7 @@ class Game extends React.Component {
                 drawCellDeath: true,
                 randomizeLifeColor: false,
                 randomizeDeathColor: true,
-                cellSize: 10,
+                cellSize: 1,
             },
             changedCells: [],
             displayWidth: 100,
