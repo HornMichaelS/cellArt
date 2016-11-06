@@ -6,33 +6,38 @@
 
 .Settings-speed-range {
     color: white;
-    padding: 10px;
+    padding-top: 0;
+    padding-bottom: 2px;
     text-align: center;
-    border-bottom: black solid 1px;
+    border: grey outset 2px;
 }
 
 .Settings-label {
     text-align: center;
-    padding: 2;
+    padding-top: 5px;
     padding-bottom: 5px;
+    margin-bottom: 5px;
+    background-color: #505053;
+    border-bottom: black solid 1px;
 }
 
 .Settings-play-pause-buttons {
     display: flex;
+    border: grey outset 2px;
     justify-content: space-around;
-    padding: 0;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     background-color: transparent;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 2px;
-    margin-right: 2px;
+    margin: 0;
 }
 
 .Settings-play-pause-buttons li {
     list-style-type: none;
     text-align: center;
     border-radius: 5px;
-    flex-basis: 30%;
+    flex-basis: 25%;
 }
 
 .Settings-play-pause-buttons li {
@@ -53,31 +58,37 @@
     height: 20px;
 }
 
-/*.Settings-play-button {
-    background-color: green;
-}*/
-
 .Settings-play-button img, .Settings-step-button img {
     position: relative;
     left: 3px;
     top: 1px;
 }
 
-/*.Settings-pause-button {
-    background-color: red;
-}*/
-
 .Settings-pause-button img {
     position: relative;
     top: 2px;
 }
 
-/*.Settings-step-button {
-    background-color: #777;
-}*/
-
 .Settings-play-pause-buttons button:active {
     background-color: #223;
+}
+
+.Settings-draw-options {
+    padding: 0;
+    margin: 0;
+}
+
+.Settings-draw-options li {
+    border: grey outset 2px;
+    list-style-type: none;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 5px;
+}
+
+.Settings-draw-options input {
+    float: right;
+    margin-right: 10px;
 }
 
 button:focus {

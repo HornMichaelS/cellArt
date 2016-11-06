@@ -15,13 +15,34 @@ class Settings extends React.Component {
         this.props.onSettingsChange(currentSettings);
     }
 
+    toggleDrawLive(event) {
+        let {currentSettings} = this.props;
+        currentSettings.drawLiveCell = !currentSettings.drawLiveCell;
+        this.props.onSettingsChange(currentSettings);
+    }
+
+    toggleDrawTrail(event) {
+        let {currentSettings} = this.props;
+        currentSettings.drawCellDeath = !currentSettings.drawCellDeath;
+        this.props.onSettingsChange(currentSettings);
+    }
+
+    stringifyBoolean(value) {
+        if (value === true) {
+            return 'on';
+        } else {
+            return 'off';
+        }
+    }
+
     /**
       * Render the settings component.
       * @return {Object} The rendered component.
       */
     render() {
-        const {speed} = this.props.currentSettings;
+        const {speed, drawLiveCell, drawCellDeath} = this.props.currentSettings;
         const onSpeedChange = this.onSpeedChange.bind(this);
+
         return (
             <div className="Settings-sub-container">
                 <div className="Settings-speed-range">
@@ -52,6 +73,20 @@ class Settings extends React.Component {
                         </li>
                     </ul>
                 </div>
+                <ul className="Settings-draw-options">
+                    <li >
+                        Draw live cells:
+                        <input type="checkbox"
+                               checked={drawLiveCell}
+                               onChange={this.toggleDrawLive.bind(this)}></input>
+                    </li>
+                    <li>
+                        Draw trails:
+                        <input type="checkbox"
+                               checked={!drawCellDeath}
+                               onChange={this.toggleDrawTrail.bind(this)}></input>
+                    </li>
+                </ul>
             </div>
         );
     }
