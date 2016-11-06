@@ -46,9 +46,9 @@ class GameDisplay extends React.Component {
           * previously.
           */
         if (shouldIncrement && color[channel] < 246) {
-            color[channel] += 10;
+            color[channel] += 5;
         } else if (color[channel] > 9) {
-            color[channel] -= 10;
+            color[channel] -= 5;
         }
     }
 
@@ -64,6 +64,10 @@ class GameDisplay extends React.Component {
 
         this.backContext.fillRect(renderX, renderY,
             this.props.settings.cellSize, this.props.settings.cellSize);
+    }
+
+    colorToString(color) {
+      return 'rgb(' + color[0] + ', ' + color[1] + ', ' + color[2] + ')';
     }
 
     /**
@@ -86,18 +90,15 @@ class GameDisplay extends React.Component {
             this.mutateColor(this.lifeColor);
         }
 
+        let lifeColorString = this.colorToString(this.lifeColor);
+        let deathColorString = this.colorToString(this.deathColor);
+
         /**
           * Iterate through the cells which were updated in the last cycle,
           * and draw them to the canvas in their new state.
           */
         for (let i = 0; i < updatedCells.length; i++) {
             let cell = updatedCells[i];
-
-            let lifeColorString = 'rgb(' + this.lifeColor[0] + ',' +
-                    this.lifeColor[1] + ',' + this.lifeColor[2] + ')';
-
-            let deathColorString = 'rgb(' + this.deathColor[0] + ',' +
-                    this.deathColor[1] + ',' + this.deathColor[2] + ')';
 
             if (cell.alive && drawLiveCell) {
                 this.backContext.fillStyle = lifeColorString;

@@ -24,7 +24,7 @@ class Game extends React.Component {
                 drawLiveCell: true,
                 drawCellDeath: true,
                 randomizeLifeColor: false,
-                randomizeDeathColor: false,
+                randomizeDeathColor: true,
                 cellSize: 10,
             },
             changedCells: [],
