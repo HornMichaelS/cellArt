@@ -79,7 +79,7 @@ class Game extends React.Component {
         let pixelSize = this.state.settings.cellSize;
         let lineWidth = Math.floor(dWidth / pixelSize);
         let lineHeight = Math.floor((dHeight / 2) / pixelSize);
-        for (let i = 0; i < lineWidth; i++) {
+        for (let i = lineWidth/2; i < (lineWidth/2) + 55; i++) {
             this.automaton.addCell(i, lineHeight);
             this.automaton.liveCells++;
         }
@@ -153,12 +153,17 @@ class Game extends React.Component {
       * @return {Object} The rendered component
       */
     render() {
+        const { settings,
+                updatedCells,
+                displayWidth,
+                displayHeight } = this.state;
+
         return (
             <div id="Game-outer-container">
                 <div id="Game-settings-container">
                     <Settings
                         onSettingsChange={this.handleSettingsChange.bind(this)}
-                        currentSettings={this.state.settings}
+                        currentSettings={settings}
                         maxSpeed={this.maxSpeed}
                         handlePlay={this.handlePlayButtonPressed.bind(this)}
                         handlePause={this.handlePauseButtonPressed.bind(this)}
@@ -166,10 +171,12 @@ class Game extends React.Component {
                     />
                 </div>
                 <div id="Game-display-container">
-                    <GameDisplay settings={this.state.settings}
-                                 updatedCells={this.state.updatedCells}
-                                 displayWidth={this.state.displayWidth}
-                                 displayHeight={this.state.displayHeight} />
+                    <GameDisplay
+                        settings={settings}
+                        updatedCells={updatedCells}
+                        displayWidth={displayWidth}
+                        displayHeight={displayHeight}
+                    />
                 </div>
             </div>
         );
