@@ -38,17 +38,17 @@ class GameDisplay extends React.Component {
       */
     mutateColor(color, probability) {
         let channel = Math.floor(Math.random() * 3);
-        let shouldIncrement = Math.floor(Math.random() * 2) === 0;
+        let shouldIncrement = Math.random() > 0.5;
 
         /**
           * If color will change, either decrement or increment the chosen
           * channel, according to the modulus 2 of the value chosen
           * previously.
           */
-        if (shouldIncrement && color[channel] < 246) {
-            color[channel] += 5;
-        } else if (color[channel] > 9) {
-            color[channel] -= 5;
+        if (shouldIncrement && color[channel] < 241) {
+            color[channel] += 15;
+        } else if (color[channel] > 14) {
+            color[channel] -= 15;
         }
     }
 
