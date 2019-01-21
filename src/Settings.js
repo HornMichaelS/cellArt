@@ -76,17 +76,27 @@ class Settings extends React.Component {
                 <ul className="Settings-draw-options">
                     <li >
                         Draw live cells:
-                        <input type="checkbox"
-                               checked={drawLiveCell}
-                               onChange={this.toggleDrawLive.bind(this)}></input>
+                        <input
+                            type="checkbox"
+                            checked={drawLiveCell}
+                            onChange={this.toggleDrawLive.bind(this)}
+                        >
+                        </input>
                     </li>
                     <li>
                         Draw trails:
-                        <input type="checkbox"
-                               checked={!drawCellDeath}
-                               onChange={this.toggleDrawTrail.bind(this)}></input>
+                        <input
+                            type="checkbox"
+                            checked={!drawCellDeath}
+                            onChange={this.toggleDrawTrail.bind(this)}
+                        >
+                        </input>
                     </li>
                 </ul>
+                <div className="Settings-speed-range">
+                  <div className="Settings-label">Draw</div>
+                  
+                </div>
             </div>
         );
     }
