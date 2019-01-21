@@ -1,4 +1,4 @@
-#CellArt
+# CellArt
 
 CellArt is an experiment in creating art through cellular automata, such as Conway's Game of Life. 
 
@@ -6,22 +6,22 @@ Systems such as Conway's 'Life', which display unpredictable and emergent proper
 
 If you feel like contributing your own ideas, or simply critiquing my design/implementation, please feel free to fork the project or send me a message.
 
-###Installation
+### Installation
 
 First ensure you have [nodejs](https://nodejs.org/en/download/) installed.
 
-####Clone this repository:
+#### Clone this repository:
 
 ```
 git clone https://github.com/HornMichaelS/cellArt.git
 cd cellArt
 ```
 
-####Install dependencies:
+#### Install dependencies:
 
 `npm install`
 
-####Run app:
+#### Run app:
 
 `npm start`
 
